@@ -184,16 +184,17 @@
 *Для Ubuntu в обеих командах добавить в начало `sudo`*
 
 6. Скопировать в корень проекта конфигурационные файлы:
-  - `package.json`
-  - `gulpfile.js`
-  - `.eslintrc`
-  - `.eslintignore`
-  - `.editorconfig`
-  - `jsdoc.json`
-  - `.csscomb.json`
-  - `webpack.config.js`
-  - `README.md`
-  - `.gitignore`
+  ```
+  - package.json
+  - gulpfile.js
+  - .eslintrc
+  - .eslintignore
+  - .editorconfig
+  - jsdoc.json
+  - .csscomb.json
+  - webpack.config.js
+  - .gitignore
+```
 
 7. При использовании спрайтов скопировать в `src/dev/common/scss` соответствующий конфигурационный файл `_sprite-template.scss`. При необходимости внести изменения в него.
 
