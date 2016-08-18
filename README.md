@@ -7,8 +7,8 @@
 3. При написании javaScript используется [синтаксис ES6] (https://babeljs.io/docs/learn-es2015/)
 4. Сборка проекта (pug -> html, scss -> css, es6 -> js, оптимизация изображений, создание спрайтов и т.д.) выполняется посредством [сборщика Gulp] (http://gulpjs.com/)
 5. Для формирования структуры проекта за основу взята [метология БЕМ] (https://ru.bem.info/methodology/), то есть:
-- вся разметка делится на блоки. Для каждого такого блока создается отдельный каталог, содержащий все ресурсы соответствующего блока - разметку, стили, скрипты и картинки. Название папки с ресурсами блока, а также файла с его разметкой, стилями и скриптами соответствуют названию блока.
-- глобальные стили и скрипты (переменные, сетка, примеси...) вынесены в ежиный каталог.
+  - вся разметка делится на блоки. Для каждого такого блока создается отдельный каталог, содержащий все ресурсы соответствующего блока - разметку, стили, скрипты и картинки. Название папки с ресурсами блока, а также файла с его разметкой, стилями и скриптами соответствуют названию блока.
+  - глобальные стили и скрипты (переменные, сетка, примеси...) вынесены в ежиный каталог.
 6. Для стилей и скриптов используется диспетчер подключений, то есть создается отдельный файл, в который импортируются стили/скрипты всех блоков, а также глобальные стили/скрипты. Порядок подключений приведен на примере:
 ```
     // Variables
@@ -138,8 +138,8 @@
 
 #### Настройка сборки проекта
 1. Установить [Node.js]:
-- для Windows скачать [установщик] (https://nodejs.org/en/)
-- для Ubuntu выполнить команды:
+  - для Windows скачать [установщик] (https://nodejs.org/en/)
+  - для Ubuntu выполнить команды:
 ```
     sudo apt-get update
     sudo apt-get install nodejs
@@ -147,13 +147,13 @@
 ```
 
 2. Установить Gulp:
-  * глобально: `npm install gulp-cli -g`
-  * в проект:  `npm install gulp`
+  - глобально: `npm install gulp-cli -g`
+  - в проект:  `npm install gulp`
 *Для Ubuntu в обеих командах добавить в начало `sudo`*
 
 3. Установить Ruby:
-- для Windows воспользоваться [инсталятором] (http://rubyinstaller.org/).
--  для Ubuntu выполнить команды:
+  - для Windows воспользоваться [инсталятором] (http://rubyinstaller.org/).
+  -  для Ubuntu выполнить команды:
 ```
   sudo apt-get update
   sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
@@ -179,21 +179,21 @@
 `gem install sass` (для Ubuntu - `sudo gem install sass`)
 
 5. Установить WebPack:
-- глобально: `npm install webpack -g`
-- в проект:  `npm install webpack`
+  - глобально: `npm install webpack -g`
+  - в проект:  `npm install webpack`
 *Для Ubuntu в обеих командах добавить в начало `sudo`*
 
 6. Скопировать в корень проекта конфигурационные файлы:
-- `package.json`
-- `gulpfile.js`
-- `.eslintrc`
-- `.eslintignore`
-- `.editorconfig`
-- `jsdoc.json`
-- `.csscomb.json`
-- `webpack.config.js`
-- `README.md`
-- `.gitignore`
+  - `package.json`
+  - `gulpfile.js`
+  - `.eslintrc`
+  - `.eslintignore`
+  - `.editorconfig`
+  - `jsdoc.json`
+  - `.csscomb.json`
+  - `webpack.config.js`
+  - `README.md`
+  - `.gitignore`
 
 7. При использовании спрайтов скопировать в `src/dev/common/scss` соответствующий конфигурационный файл `_sprite-template.scss`. При необходимости внести изменения в него.
 
@@ -217,4 +217,4 @@
 | `gulp csslint` | Проверка css на соответствие стандартам |
 | `gulp watch` | Поднятие локального сервера и включение режима 'слежения' |
 | `gulp build` | Создание версии для публикации |
-| `gulp github` | Копирование версии для публикации в корень проекта (для возможности просмотра сайта на gh-pages) |
+| `gulp github` | Копирование версии для публикации в корень проекта (для просмотра сайта на gh-pages) |
