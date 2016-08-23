@@ -1,12 +1,10 @@
-.icon {
-  display: inline-block;
-  background-image: url('../icon/sprite.svg');
-  background-repeat: no-repeat;
-}
 <% _.forEach(svg, function(svgItem) { %>
 .icon--<%=svgItem.name%> {
+  display: block;
   width: <%= svgItem.width %>px;
   height: <%= svgItem.height %>px;
+  background-image: url('../icon/sprite.svg');
+  background-repeat: no-repeat;
   background-position: <%= svgItem.positionX %>px <%= svgItem.positionY %>px;
 }
 <% }); %>

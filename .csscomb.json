@@ -20,10 +20,19 @@
   "space-before-selector-delimiter": "",
   "space-before-closing-brace": "\n",
   "strip-spaces": true,
-  "tab-size": true,
+  "tab-size": 2,
   "unitless-zero": true,
   "vendor-prefix-align": true,
+  "rule-delimiter": 1,
+  "lines-between-rulesets": 1,
+  "verbose": true,
   "sort-order": [
+    [ "$import" ],
+    [ "$variable" ],
+    [
+      "$extend",
+      "$include"
+    ],
     [
       "content",
       "position",

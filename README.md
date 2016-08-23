@@ -22,7 +22,7 @@
     @import './scss/fonts';
     @import './scss/scaffolding';
     @import './scss/button';
-    @import './scss/icons';
+    @import './scss/icon';
 
     // BEM blocks
     @import './blocks/navigation/navigation';
@@ -94,32 +94,31 @@
 ├── **fonts**                             *// Шрифты проекта*
     └── font1.woff
     ├── font1.eof
-    ├── font1.ttf
-    ├── font1.svg
     ......
     ├── fontN.woff
-    ├── fontN.eof
-    ├── fontN.ttf
-    └── fontN.svg
-├── **images**                            *// Картинки проекта*
+    └── fontN.eof
+├── **img**                            *// Картинки проекта*
     └── **block1**
         └── **img**
             ......
             └── imageX.{png/jpg/gif}
         ......
         └── **blockM**
-├── **libraries**
-    └── **library1**                      *// Сторонние библиотеки*
-        └── .....
+└── **iсon**                              *// Иконки проекта*
+    ├── icon1.{png/jpg/svg/gif}
     ......
-    └── **libraryG**
+    ├── iconU.{png/jpg/svg/gif}
+    └── sprite.{png/svg}                  *// Спрайт*
+└── **css**                               *// Стили проекта*
+    ├── style.css
+    └── style.min.css
+└── **js**                                *// Скрипты проекта*
+    ├── script.js
+    └── script.min.js
 ├── index.html                            *// Главная страница*
 ├── page_1.html                           *// Страница 1*
 ......
 ├── page_K.html                           *// Страница K*
-├── style.min.css                         *// Стили проекта*
-├── script.min.js                         *// Скрипты проекта*
-├── sprote.{png/svg}                      *// Спрайт*
 └── favicon.ico                           *// Изображение к заголовке страницы*
 
 *--------               НАСТРОЙКИ ПРОЕКТА И ЕГО СБОРКИ                --------*
@@ -212,7 +211,7 @@
 | gulp scss | Конвертация scss в css |
 | gulp script | Конвертация es2015 в js |
 | gulp img | Оптимизация png, jpg, gif и svg |
-| gulp sprite | Создание png-спрайта |
+| gulp pngSprite | Создание png-спрайта |
 | gulp svgSprite | Создание svg-спрайта |
 | gulp htmllint | Проверка html на соответствие стандартам |
 | gulp csslint | Проверка css на соответствие стандартам |

@@ -1,9 +1,8 @@
 {{#sprites}}
 .icon--{{name}} {
-  content: '';
+  display: inline-block;
   width: {{px.width}};
   height: {{px.height}};
-  background: url(images/{{{escaped_image}}}) no-repeat {{px.offset_x}} {{px.offset_y}};
-  display: inline-block;
+  background: url(icon/{{{escaped_image}}}) no-repeat {{px.offset_x}} {{px.offset_y}};
 }
 {{/sprites}}

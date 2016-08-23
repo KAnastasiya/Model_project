@@ -19,22 +19,40 @@ gulp.task('pug', () => {
 });
 
 // SCSS to CSS
-gulp.task('scss', () => {
+gulp.task('cleanCss', () => {
+  return del('src/css');
+});
+
+gulp.task('scss', ['cleanCss'], () => {
   return gulp.src('src/dev/style.scss')
   .pipe(plugins.plumber({ errorHandler: plugins.notify.onError() }))
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.scss())
-  .pipe(plugins.autoprefixer(['last 3 versions'], { cascade: false }))
+  .pipe(plugins.autoprefixer([
+    'last 2 Chrome versions',
+    'last 2 Firefox versions',
+    'last 2 Opera versions',
+    'last 2 Safari versions',
+    'Explorer >= 10',
+    'last 2 Edge versions',
+    ],
+    { cascade: false }
+  ))
   .pipe(plugins.csscomb('./.csscomb.json'))
+  .pipe(gulp.dest('src/css'))
   .pipe(plugins.cssnano())
   .pipe(plugins.rename({ suffix: '.min' }))
   .pipe(plugins.sourcemaps.write())
-  .pipe(gulp.dest('src'));
+  .pipe(gulp.dest('src/css'));
 });
 
 // ES2016 to common JS
 // TODO: need stop this task after its finish
-gulp.task('script', () => {
+gulp.task('cleanSript', () => {
+  return del('src/js');
+});
+
+gulp.task('script', ['cleanSript'], () => {
   return gulp.src('src/dev/script.js')
   .pipe(plugins.plumber({
     errorHandler: plugins.notify.onError(err => ({
@@ -45,7 +63,7 @@ gulp.task('script', () => {
   .pipe(named())
   .pipe(webpack(require('./webpack.config.js')))
   .pipe(plugins.rename({ suffix: '.min' }))
-  .pipe(gulp.dest('src'));
+  .pipe(gulp.dest('src/js'));
 });
 
 // Html and CSS linters
@@ -57,7 +75,7 @@ gulp.task('htmllint', () => {
 });
 
 gulp.task('csslint', () => {
-  gulp.src('src/*.css')
+  gulp.src('src/css/*')
     .pipe(plugins.csslint())
     .pipe(plugins.csslint.reporter())
 });
@@ -68,7 +86,7 @@ gulp.task('cleanImg', () => {
 });
 
 gulp.task('img', ['cleanImg'], () => {
-  return gulp.src(['src/blocks/**/img/*'])
+  return gulp.src(['src/common/img/*', 'src/blocks/*/img/*'])
   .pipe(plugins.imagemin([
     plugins.imagemin.gifsicle({
       interlaced: true,
@@ -88,24 +106,29 @@ gulp.task('img', ['cleanImg'], () => {
   .pipe(gulp.dest('src/img'));
 });
 
-// Creation icons sprite
-gulp.task('sprite', () => {
-  var spriteData = gulp.src('src/blocks/*/icons/*')
+// Create icons sprite
+gulp.task('cleanIcon', () => {
+  return del('src/icon');
+});
+
+// Png-sprite
+gulp.task('pngSprite', ['cleanIcon'], () => {
+  var spriteData = gulp.src(['src/common/icon/*', 'src/blocks/*/icon/*'],)
     .pipe(plugins.spritesmith({
-      imgName: 'icons.png',
-      cssName: '_icons.scss',
+      imgName: 'sprite.png',
+      cssName: '_sprite.scss',
       cssFormat: 'scss',
       algorithm: 'left-right',
       padding: 20,
-      cssTemplate: 'handlebarsStr.css.handlebars'
+      cssTemplate: 'src/common/scss/_sprite-template.scss'
     }));
 
-  spriteData.img.pipe(gulp.dest('src'));
+  spriteData.img.pipe(gulp.dest('src/icon'));
   spriteData.css.pipe(gulp.dest('src/common/scss'));
 });
 
-// Create svg-sprite
-gulp.task('svgSprite', () => {
+// Svg-sprite
+gulp.task('svgSprite', ['cleanIcon'], () => {
   return gulp.src(['src/common/icon/*', 'src/blocks/*/icon/*'])
     .pipe(plugins.svgSprites({
       cssFile: 'scss/_sprite.scss',
@@ -113,7 +136,9 @@ gulp.task('svgSprite', () => {
       layout: 'horizontal',
       padding: 0,
       svg: { sprite: '../../icon/sprite.svg' },
-      templates: { css: require('fs').readFileSync('src/common/scss/sprite-template.scss', 'utf-8') }
+      templates: {
+        css: require('fs').readFileSync('src/common/scss/sprite-template.scss', 'utf-8')
+      }
     }))
     .pipe(gulp.dest('src/common'));
 });
@@ -127,25 +152,30 @@ gulp.task('build', ['cleanBuild'], () => {
   let html = gulp.src('src/*.html')
   .pipe(gulp.dest('build'));
 
-  let css = gulp.src('src/*.css')
+  let css = gulp.src('src/css/*')
   .pipe(gulp.dest('build'));
 
-  let scripts = gulp.src(['src/*.js'])
+  let script = gulp.src(['src/js/*'])
   .pipe(gulp.dest('build'));
 
-  let icons = gulp.src(['src/favicon.*','src/icons.*'])
-  .pipe(gulp.dest('build'));
+  let img = gulp.src(['src/img/**/*'])
+  .pipe(gulp.dest('build/img'));
+
+  let icon = gulp.src(['src/icon/*'])
+  .pipe(gulp.dest('build/icon'));
 
   let fonts = gulp.src('src/fonts/**/*')
   .pipe(gulp.dest('build/fonts'));
 
-  let img = gulp.src(['src/img/**/*'])
-  .pipe(gulp.dest('build/img'));
+  let favicon = gulp.src(['src/favicon.*'])
+  .pipe(gulp.dest('build'));
 });
 
 // Server and watch mode
 // TODO: previously need start task 'script'
-gulp.task('watch', gulpsync.sync(['sprite', 'svgSprite', 'img','pug', 'scss', 'build']), () => {
+gulp.task('watch', gulpsync.sync(
+  ['pngSprite', 'svgSprite', 'img','pug', 'scss', 'build']
+), () => {
   browserSync.init({
     server: {
       baseDir: 'build',
@@ -155,11 +185,30 @@ gulp.task('watch', gulpsync.sync(['sprite', 'svgSprite', 'img','pug', 'scss', 'b
   });
 
   browserSync.watch('src/dev').on('change', () => {
-    gulp.watch(['src/dev/common/icon/*', 'src/dev/blocks/*/icon/*'], ['svgSprite', browserSync.reload]);
-    gulp.watch(['src/dev/common/img/*', 'src/dev/blocks/*/img/*'], ['img', browserSync.reload]);
-    gulp.watch('src/dev/blocks/**/*.pug', gulpsync.sync(['pug', 'build', browserSync.reload]));
-    gulp.watch(['src/dev/blocks/**/*.scss', 'src/dev/common/scss'], gulpsync.sync(['scss', 'build', browserSync.reload]));
-    gulp.watch(['src/dev/blocks/**/*.js', 'src/dev/common/js'], gulpsync.sync(['script', 'build', browserSync.reload]));
+    gulp.watch(
+      ['src/dev/*.pug', 'src/dev/blocks/**/*.pug'],
+      gulpsync.sync(['pug', 'build', browserSync.reload])
+    );
+
+    gulp.watch(
+      ['src/dev/blocks/**/*.scss', 'src/dev/common/scss'],
+      gulpsync.sync(['scss', 'build', browserSync.reload])
+    );
+
+    gulp.watch(
+      ['src/dev/blocks/**/*.js', 'src/dev/common/js'],
+      gulpsync.sync(['script', 'build', browserSync.reload])
+    );
+
+    gulp.watch(
+      ['src/dev/common/icon/*', 'src/dev/blocks/*/icon/*'],
+      ['pngSprite', 'svgSprite', 'scss', 'build', browserSync.reload]
+    );
+
+    gulp.watch(
+      ['src/dev/common/img/*', 'src/dev/blocks/*/img/*'],
+      ['img', 'build', browserSync.reload]
+    );
   });
 });
 
