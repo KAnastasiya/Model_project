@@ -178,7 +178,7 @@
 4. Установить Sass:
 `gem install sass` (для Ubuntu - `sudo gem install sass`)
 
-*[Error: SASS installation for windows] (http://stackoverflow.com/questions/27278966/error-sass-installation-for-windows)*
+*На Windows сталкивалась с проблемами установки. Помогла вот эта ссылка [Error: SASS installation for windows] (http://stackoverflow.com/questions/27278966/error-sass-installation-for-windows)*
 
 5. Установить WebPack:
   - глобально: `npm install webpack -g`
