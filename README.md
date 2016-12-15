@@ -148,6 +148,7 @@
 2. Установить Gulp:
   - глобально: `npm install gulp-cli -g`
   - в проект:  `npm install gulp`
+ 
 *Для Ubuntu в обеих командах добавить в начало `sudo`*
 
 3. Установить Ruby:
@@ -176,11 +177,13 @@
 
 4. Установить Sass:
 `gem install sass` (для Ubuntu - `sudo gem install sass`)
+
 *[Error: SASS installation for windows] (http://stackoverflow.com/questions/27278966/error-sass-installation-for-windows)*
 
 5. Установить WebPack:
   - глобально: `npm install webpack -g`
   - в проект:  `npm install webpack`
+
 *Для Ubuntu в обеих командах добавить в начало `sudo`*
 
 6. Скопировать в корень проекта конфигурационные файлы:
