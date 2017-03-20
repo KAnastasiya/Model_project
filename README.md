@@ -2,11 +2,11 @@
 
 #### Общее описание
 
-1. Разметка пишется с помощью [шаблонизатора Pug] (https://github.com/pugjs/pug)
-2. Стили пишутся с использованием [препроцессора SCSS] (http://sass-scss.ru/guide/)
-3. При написании javaScript используется [синтаксис ES6] (https://babeljs.io/docs/learn-es2015/)
-4. Сборка проекта (pug -> html, scss -> css, es6 -> js, оптимизация изображений, создание спрайтов и т.д.) выполняется посредством [сборщика Gulp] (http://gulpjs.com/)
-5. Для формирования структуры проекта за основу взята [метология БЕМ] (https://ru.bem.info/methodology/), то есть:
+1. Разметка пишется с помощью [шаблонизатора Pug](https://github.com/pugjs/pug)
+2. Стили пишутся с использованием [препроцессора SCSS](http://sass-scss.ru/guide/)
+3. При написании javaScript используется [синтаксис ES6](https://babeljs.io/docs/learn-es2015/)
+4. Сборка проекта (pug -> html, scss -> css, es6 -> js, оптимизация изображений, создание спрайтов и т.д.) выполняется посредством [сборщика Gulp](http://gulpjs.com/)
+5. Для формирования структуры проекта за основу взята [метология БЕМ](https://ru.bem.info/methodology/), то есть:
   - вся разметка делится на блоки. Для каждого такого блока создается отдельный каталог, содержащий все ресурсы соответствующего блока - разметку, стили, скрипты и картинки. Название папки с ресурсами блока, а также файла с его разметкой, стилями и скриптами соответствуют названию блока.
   - глобальные стили и скрипты (переменные, сетка, примеси...) вынесены в ежиный каталог.
 6. Для стилей и скриптов используется диспетчер подключений, то есть создается отдельный файл, в который импортируются стили/скрипты всех блоков, а также глобальные стили/скрипты. Порядок подключений приведен на примере:
@@ -137,7 +137,7 @@
 
 #### Настройка сборки проекта
 1. Установить [Node.js]:
-  - для Windows скачать [установщик] (https://nodejs.org/en/)
+  - для Windows скачать [установщик](https://nodejs.org/en/)
   - для Ubuntu выполнить команды:
 ```
     sudo apt-get update
@@ -152,7 +152,7 @@
 *Для Ubuntu в обеих командах добавить в начало `sudo`*
 
 3. Установить Ruby:
-  - для Windows воспользоваться [инсталятором] (http://rubyinstaller.org/).
+  - для Windows воспользоваться [инсталятором](http://rubyinstaller.org/).
   -  для Ubuntu выполнить команды:
 ```
   sudo apt-get update
@@ -178,7 +178,7 @@
 4. Установить Sass:
 `gem install sass` (для Ubuntu - `sudo gem install sass`)
 
-*На Windows сталкивалась с проблемами установки. Помогла вот эта ссылка [Error: SASS installation for windows] (http://stackoverflow.com/questions/27278966/error-sass-installation-for-windows)*
+*На Windows сталкивалась с проблемами установки. Помогла вот эта ссылка [Error: SASS installation for windows](http://stackoverflow.com/questions/27278966/error-sass-installation-for-windows)*
 
 5. Установить WebPack:
   - глобально: `npm install webpack -g`
@@ -204,7 +204,7 @@
 8. Установить все необходимые плагины для Gulp и WebPack:
 `npm install` (для Ubuntu - `sudo npm install`)
 
-9. При необходимости настроить [Sublime Text 3] (https://github.com/KAnastasiya/SublimeText3/blob/master/README.md)
+9. При необходимости настроить [Sublime Text 3](https://github.com/KAnastasiya/SublimeText3/blob/master/README.md)
 
 
 #### Команды для сборки проекта
